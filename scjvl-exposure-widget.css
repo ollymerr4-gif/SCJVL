@@ -187,15 +187,15 @@ html body a:not(.btn):not(.custom-btn-calendar):not(.custom-btn-directions):focu
 
 /* --------------------------------------------------------------------------
    TEAMS widget: stack team names in one bordered box instead of columns.
-   Covers both likely layouts: Bootstrap columns inside a .row, or links
-   placed directly inside one container.
+   Exposure's markup is:
+     .row > .col-12.mb-4 > h2 + .row > .col-12.col-sm-6.col-md-4.col-lg-3 > a
+   Only the INNER .row (whose columns directly hold the team links) is boxed,
+   so the heading and the outer row are left alone.
    -------------------------------------------------------------------------- */
-html body .row:has(a[href*="divisionteamid"]),
-html body :has(> a[href*="divisionteamid"] ~ a[href*="divisionteamid"]) {
+html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  column-count: 1;
   margin: 0 0 20px;
   max-width: 420px;
   background: var(--scjvl-white);
@@ -205,30 +205,39 @@ html body :has(> a[href*="divisionteamid"] ~ a[href*="divisionteamid"]) {
   box-shadow: 0 2px 6px rgba(18, 59, 93, 0.08);
 }
 
-html body .row:has(a[href*="divisionteamid"]) > *,
-html body :has(> a[href*="divisionteamid"] ~ a[href*="divisionteamid"]) > a[href*="divisionteamid"] {
-  display: block;
+html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) > [class*="col-"] {
   flex: 0 0 auto;
   width: 100%;
   max-width: 100%;
-  padding: 12px 20px;
+  padding: 0;
   border-bottom: 1px solid rgba(18, 59, 93, 0.1);
 }
 
-html body .row:has(a[href*="divisionteamid"]) > *:last-child,
-html body :has(> a[href*="divisionteamid"] ~ a[href*="divisionteamid"]) > a[href*="divisionteamid"]:last-child {
+html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) > [class*="col-"]:last-child {
   border-bottom: none;
 }
 
-html body .row:has(a[href*="divisionteamid"]) > *:nth-child(even),
-html body :has(> a[href*="divisionteamid"] ~ a[href*="divisionteamid"]) > a[href*="divisionteamid"]:nth-child(even) {
+/* Alternate rows peach, same as the standings table */
+html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) > [class*="col-"]:nth-child(even) {
   background-color: var(--scjvl-peach);
 }
 
-/* Info banners (e.g. the notifications hint): peach with an orange edge */
+/* Whole row is clickable, not just the text */
+html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) a[href*="divisionteamid"] {
+  display: block;
+  padding: 12px 20px;
+}
+
+/* Banners (e.g. the notifications hint): peach with an orange edge */
+html body .alert-primary,
 html body .alert-info {
   background-color: var(--scjvl-peach);
   border: 1px solid var(--scjvl-orange);
   color: var(--scjvl-navy);
   border-radius: 12px;
+}
+
+html body .alert-primary b,
+html body .alert-primary strong {
+  color: var(--scjvl-navy);
 }
