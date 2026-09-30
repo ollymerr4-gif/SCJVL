@@ -1,0 +1,171 @@
+/* ==========================================================================
+   SCJVL — Exposure Events widget custom stylesheet
+   Colors sampled directly from the SCJVL Wix site screenshots + editor
+   swatches. Host this file publicly (text/css) and paste its URL into
+   the "Custom CSS Url" field in the Exposure Events widget settings.
+   ========================================================================== */
+
+:root {
+  --scjvl-navy: #123b5d;        /* brand swatch: primary navy */
+  --scjvl-navy-dark: #0e1b2b;   /* deep navy used on dark panels (Quick Links box) */
+  --scjvl-blue: #4f83a8;        /* brand swatch: secondary blue */
+  --scjvl-blue-bold: #0055a4;   /* richer blue used in "GROW." heading + Register button */
+  --scjvl-orange: #f47b32;      /* brand swatch: primary orange */
+  --scjvl-orange-light: #ffc760;/* lighter stop used in button/nav gradients */
+  --scjvl-orange-dark: #ff9c4a; /* darker stop used in button/nav gradients */
+  --scjvl-peach: #ffe3cc;       /* brand swatch: light cream/peach background */
+  --scjvl-black: #000000;
+  --scjvl-white: #ffffff;
+
+  --scjvl-font: 'Neue Haas Unica Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Neue Haas Unica Pro is a commercial Monotype font, not available from
+   Google Fonts or any free CDN. Wix licenses it for use on your Wix pages
+   only, that license does not extend to files you host elsewhere, so it
+   will not legally carry over into this widget. The font-family above
+   will fall back to Helvetica Neue / Arial, which is a close visual match.
+   If you own separate web-font files for Neue Haas Unica Pro (e.g. from
+   Monotype/Fonts.com), you can self-host them here instead:
+
+   @font-face {
+     font-family: 'Neue Haas Unica Pro';
+     src: url('https://your-css-host.example.com/fonts/NeueHaasUnicaPro-Bold.woff2') format('woff2');
+     font-weight: 700;
+   }
+*/
+
+/* Scope everything to the widget's own page so nothing leaks elsewhere */
+body.widgets-schedule {
+  font-family: var(--scjvl-font);
+  background-color: var(--scjvl-white);
+  color: var(--scjvl-navy);
+}
+
+/* Section headings: Standings / Schedule / Champions
+   Matches the bold black caption + orange underline used on your site
+   (e.g. "SCJVL NOTICES", "Under 13") */
+body.widgets-schedule h2 {
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--scjvl-black);
+  letter-spacing: 0.5px;
+  border-bottom: 3px solid var(--scjvl-orange);
+  display: inline-block;
+  padding-bottom: 4px;
+  margin-bottom: 16px;
+}
+
+/* Division list items in the sidebar */
+body.widgets-schedule .display-8 {
+  font-weight: 700;
+  color: var(--scjvl-navy);
+}
+
+/* Game cards */
+body.widgets-schedule .card {
+  border: 1px solid rgba(18, 59, 93, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(18, 59, 93, 0.08);
+}
+
+body.widgets-schedule .card-header {
+  background-color: var(--scjvl-peach);
+  color: var(--scjvl-navy);
+  font-weight: 600;
+  border-bottom: none;
+}
+
+body.widgets-schedule .card-body {
+  background-color: var(--scjvl-white);
+}
+
+body.widgets-schedule .card-footer {
+  background-color: var(--scjvl-white);
+  border-top: 1px solid rgba(18, 59, 93, 0.1);
+  color: var(--scjvl-blue);
+  font-size: 0.85rem;
+}
+
+/* Scores */
+body.widgets-schedule .final-score {
+  color: var(--scjvl-navy);
+  font-weight: 800;
+}
+
+/* Primary buttons (Register-style pill, orange gradient — matches your
+   "Register" / "Fixture" buttons) */
+body.widgets-schedule .btn-primary,
+body.widgets-schedule .custom-btn-calendar,
+body.widgets-schedule .btn-warning {
+  background: linear-gradient(90deg, var(--scjvl-orange-light) 0%, var(--scjvl-orange-dark) 100%);
+  border: none;
+  color: var(--scjvl-white);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 6px 18px;
+}
+
+body.widgets-schedule .btn-primary:hover,
+body.widgets-schedule .custom-btn-calendar:hover,
+body.widgets-schedule .btn-warning:hover {
+  filter: brightness(0.95);
+}
+
+/* Secondary buttons (navy/blue, matches your dark "Register" button) */
+body.widgets-schedule .btn-dark,
+body.widgets-schedule .custom-btn-directions {
+  background-color: var(--scjvl-blue-bold);
+  border: none;
+  color: var(--scjvl-white);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 6px 18px;
+}
+
+body.widgets-schedule .btn-dark:hover,
+body.widgets-schedule .custom-btn-directions:hover {
+  background-color: var(--scjvl-navy);
+}
+
+/* Standings table */
+body.widgets-schedule table.table-pool thead th {
+  background-color: var(--scjvl-navy-dark);
+  color: var(--scjvl-white);
+  font-weight: 700;
+  border: none;
+}
+
+body.widgets-schedule table.table-pool td {
+  color: var(--scjvl-navy);
+}
+
+body.widgets-schedule table.table-pool tbody tr:nth-child(odd) {
+  background-color: var(--scjvl-peach);
+}
+
+/* "Powered by" attribution — recolored to fit the palette, left in place
+   as required by Exposure Events' terms (must not be hidden/removed) */
+body.widgets-schedule a.text-volleyball {
+  color: var(--scjvl-orange) !important;
+  font-weight: 600;
+}
+/* --------------------------------------------------------------------------
+   Links (team names in standings and game cards)
+   Exposure colours these red by default. Navy text, blue on hover so they
+   still read as clickable. Buttons are excluded so their own colours stay.
+   -------------------------------------------------------------------------- */
+body.widgets-schedule a:not(.btn):not(.custom-btn-calendar):not(.custom-btn-directions),
+body.widgets-schedule a:not(.btn):not(.custom-btn-calendar):not(.custom-btn-directions):visited,
+body.widgets-schedule .text-danger,
+body.widgets-schedule .text-volleyball {
+  color: var(--scjvl-navy) !important;
+  font-weight: 600;
+}
+
+body.widgets-schedule a:not(.btn):not(.custom-btn-calendar):not(.custom-btn-directions):hover,
+body.widgets-schedule a:not(.btn):not(.custom-btn-calendar):not(.custom-btn-directions):focus {
+  color: var(--scjvl-blue-bold) !important;
+  text-decoration: underline;
+}
