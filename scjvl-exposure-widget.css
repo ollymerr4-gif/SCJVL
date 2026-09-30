@@ -35,8 +35,11 @@
    }
 */
 
-/* Scope everything to the widget's own page so nothing leaks elsewhere */
-body.widgets-schedule {
+/* One stylesheet for every Exposure widget (schedule, teams, etc.).
+   Exposure puts a class like "widgets-schedule" or "widgets-teams" on each
+   widget page's <body>, so body[class*="widgets-"] matches all of them and
+   nothing outside the widgets. Widget-specific rules are at the bottom. */
+body[class*="widgets-"] {
   font-family: var(--scjvl-font);
   background-color: var(--scjvl-white);
   color: var(--scjvl-navy);
@@ -45,7 +48,7 @@ body.widgets-schedule {
 /* Section headings: Standings / Schedule / Champions
    Matches the bold black caption + orange underline used on your site
    (e.g. "SCJVL NOTICES", "Under 13") */
-body.widgets-schedule h2 {
+body[class*="widgets-"] h2 {
   font-weight: 800;
   text-transform: uppercase;
   color: var(--scjvl-black);
@@ -57,31 +60,31 @@ body.widgets-schedule h2 {
 }
 
 /* Division list items in the sidebar */
-body.widgets-schedule .display-8 {
+body[class*="widgets-"] .display-8 {
   font-weight: 700;
   color: var(--scjvl-navy);
 }
 
 /* Game cards */
-body.widgets-schedule .card {
+body[class*="widgets-"] .card {
   border: 1px solid rgba(18, 59, 93, 0.15);
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(18, 59, 93, 0.08);
 }
 
-body.widgets-schedule .card-header {
+body[class*="widgets-"] .card-header {
   background-color: var(--scjvl-peach);
   color: var(--scjvl-navy);
   font-weight: 600;
   border-bottom: none;
 }
 
-body.widgets-schedule .card-body {
+body[class*="widgets-"] .card-body {
   background-color: var(--scjvl-white);
 }
 
-body.widgets-schedule .card-footer {
+body[class*="widgets-"] .card-footer {
   background-color: var(--scjvl-white);
   border-top: 1px solid rgba(18, 59, 93, 0.1);
   color: var(--scjvl-blue);
@@ -89,16 +92,16 @@ body.widgets-schedule .card-footer {
 }
 
 /* Scores */
-body.widgets-schedule .final-score {
+body[class*="widgets-"] .final-score {
   color: var(--scjvl-navy);
   font-weight: 800;
 }
 
 /* Primary buttons (Register-style pill, orange gradient — matches your
    "Register" / "Fixture" buttons) */
-body.widgets-schedule .btn-primary,
-body.widgets-schedule .custom-btn-calendar,
-body.widgets-schedule .btn-warning {
+body[class*="widgets-"] .btn-primary,
+body[class*="widgets-"] .custom-btn-calendar,
+body[class*="widgets-"] .btn-warning {
   background: linear-gradient(90deg, var(--scjvl-orange-light) 0%, var(--scjvl-orange-dark) 100%);
   border: none;
   color: var(--scjvl-white);
@@ -107,15 +110,15 @@ body.widgets-schedule .btn-warning {
   padding: 6px 18px;
 }
 
-body.widgets-schedule .btn-primary:hover,
-body.widgets-schedule .custom-btn-calendar:hover,
-body.widgets-schedule .btn-warning:hover {
+body[class*="widgets-"] .btn-primary:hover,
+body[class*="widgets-"] .custom-btn-calendar:hover,
+body[class*="widgets-"] .btn-warning:hover {
   filter: brightness(0.95);
 }
 
 /* Secondary buttons (navy/blue, matches your dark "Register" button) */
-body.widgets-schedule .btn-dark,
-body.widgets-schedule .custom-btn-directions {
+body[class*="widgets-"] .btn-dark,
+body[class*="widgets-"] .custom-btn-directions {
   background-color: var(--scjvl-blue-bold);
   border: none;
   color: var(--scjvl-white);
@@ -124,30 +127,30 @@ body.widgets-schedule .custom-btn-directions {
   padding: 6px 18px;
 }
 
-body.widgets-schedule .btn-dark:hover,
-body.widgets-schedule .custom-btn-directions:hover {
+body[class*="widgets-"] .btn-dark:hover,
+body[class*="widgets-"] .custom-btn-directions:hover {
   background-color: var(--scjvl-navy);
 }
 
 /* Standings table */
-body.widgets-schedule table.table-pool thead th {
+body[class*="widgets-"] table.table-pool thead th {
   background-color: var(--scjvl-navy-dark);
   color: var(--scjvl-white);
   font-weight: 700;
   border: none;
 }
 
-body.widgets-schedule table.table-pool td {
+body[class*="widgets-"] table.table-pool td {
   color: var(--scjvl-navy);
 }
 
-body.widgets-schedule table.table-pool tbody tr:nth-child(odd) {
+body[class*="widgets-"] table.table-pool tbody tr:nth-child(odd) {
   background-color: var(--scjvl-peach);
 }
 
 /* "Powered by" attribution — recolored to fit the palette, left in place
    as required by Exposure Events' terms (must not be hidden/removed) */
-body.widgets-schedule a.text-volleyball {
+body[class*="widgets-"] a.text-volleyball {
   color: var(--scjvl-orange) !important;
   font-weight: 600;
 }
@@ -156,16 +159,50 @@ body.widgets-schedule a.text-volleyball {
    Exposure colours these red by default. Navy text, blue on hover so they
    still read as clickable. Buttons are excluded so their own colours stay.
    -------------------------------------------------------------------------- */
-body.widgets-schedule a:not(.btn):not(.custom-btn-calendar):not(.custom-btn-directions),
-body.widgets-schedule a:not(.btn):not(.custom-btn-calendar):not(.custom-btn-directions):visited,
-body.widgets-schedule .text-danger,
-body.widgets-schedule .text-volleyball {
+body[class*="widgets-"] a:not(.btn):not(.custom-btn-calendar):not(.custom-btn-directions),
+body[class*="widgets-"] a:not(.btn):not(.custom-btn-calendar):not(.custom-btn-directions):visited,
+body[class*="widgets-"] .text-danger,
+body[class*="widgets-"] .text-volleyball {
   color: var(--scjvl-navy) !important;
   font-weight: 600;
 }
 
-body.widgets-schedule a:not(.btn):not(.custom-btn-calendar):not(.custom-btn-directions):hover,
-body.widgets-schedule a:not(.btn):not(.custom-btn-calendar):not(.custom-btn-directions):focus {
+body[class*="widgets-"] a:not(.btn):not(.custom-btn-calendar):not(.custom-btn-directions):hover,
+body[class*="widgets-"] a:not(.btn):not(.custom-btn-calendar):not(.custom-btn-directions):focus {
   color: var(--scjvl-blue-bold) !important;
   text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   TEAMS widget: stack team names in one bordered box instead of columns.
+   Exposure lays these out as Bootstrap columns inside a .row.
+   -------------------------------------------------------------------------- */
+body[class*="widgets-"] .row:has(a[href*="divisionteamid"]) {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin: 0 0 20px;
+  max-width: 420px;
+  background: var(--scjvl-white);
+  border: 1px solid rgba(18, 59, 93, 0.15);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(18, 59, 93, 0.08);
+}
+
+body[class*="widgets-"] .row:has(a[href*="divisionteamid"]) > * {
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 100%;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(18, 59, 93, 0.1);
+}
+
+body[class*="widgets-"] .row:has(a[href*="divisionteamid"]) > *:last-child {
+  border-bottom: none;
+}
+
+/* Alternate rows peach, same as the standings table */
+body[class*="widgets-"] .row:has(a[href*="divisionteamid"]) > *:nth-child(even) {
+  background-color: var(--scjvl-peach);
 }
