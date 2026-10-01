@@ -187,32 +187,19 @@ html body a:not(.btn):not(.custom-btn-calendar):not(.custom-btn-directions):focu
 
 /* --------------------------------------------------------------------------
    TEAMS widget: one column per division, division name as the column header,
-   team names stacked underneath. 6 columns across on wide pages, 3 on medium,
-   2 on phones. Exposure's markup is:
+   team names stacked underneath. 2 columns across at every page width. Exposure's markup is:
      OUTER .row > .col-12.mb-4 (one per division) > h2 + INNER .row >
        .col-12.col-sm-6.col-md-4.col-lg-3 > a
    A division with no teams keeps its header; this stylesheet does not hide it.
    -------------------------------------------------------------------------- */
 
-/* The outer row becomes the grid of division columns */
+/* The outer row becomes the grid of division columns: 2 across at every width */
 html body .row:has(> [class*="col-"] > .row > [class*="col-"] > a[href*="divisionteamid"]) {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
   align-items: start;
   margin: 0 0 24px;
-}
-
-@media (max-width: 1000px) {
-  html body .row:has(> [class*="col-"] > .row > [class*="col-"] > a[href*="divisionteamid"]) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 480px) {
-  html body .row:has(> [class*="col-"] > .row > [class*="col-"] > a[href*="divisionteamid"]) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 /* Each division is a white card */
