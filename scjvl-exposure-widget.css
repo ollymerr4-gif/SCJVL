@@ -186,59 +186,89 @@ html body a:not(.btn):not(.custom-btn-calendar):not(.custom-btn-directions):focu
 }
 
 /* --------------------------------------------------------------------------
-   TEAMS widget: each division is a heading followed by a grid of team tiles.
-   6 across on wide pages, 3 across on medium, 2 across on phones.
-   Exposure's markup is:
-     .row > .col-12.mb-4 > h2 + .row > .col-12.col-sm-6.col-md-4.col-lg-3 > a
-   Only the INNER .row (whose columns directly hold the team links) is turned
-   into a grid, so the heading and outer row are left alone. Works for any
-   number of divisions because each one repeats the same structure.
+   TEAMS widget: one column per division, division name as the column header,
+   team names stacked underneath. 6 columns across on wide pages, 3 on medium,
+   2 on phones. Exposure's markup is:
+     OUTER .row > .col-12.mb-4 (one per division) > h2 + INNER .row >
+       .col-12.col-sm-6.col-md-4.col-lg-3 > a
+   A division with no teams keeps its header; this stylesheet does not hide it.
    -------------------------------------------------------------------------- */
-html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) {
+
+/* The outer row becomes the grid of division columns */
+html body .row:has(> [class*="col-"] > .row > [class*="col-"] > a[href*="divisionteamid"]) {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 12px;
-  margin: 0 0 8px;
+  gap: 14px;
+  align-items: start;
+  margin: 0 0 24px;
 }
 
 @media (max-width: 1000px) {
-  html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) {
+  html body .row:has(> [class*="col-"] > .row > [class*="col-"] > a[href*="divisionteamid"]) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 480px) {
-  html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) {
+  html body .row:has(> [class*="col-"] > .row > [class*="col-"] > a[href*="divisionteamid"]) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/* Each column cell becomes one tile */
-html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) > [class*="col-"] {
+/* Each division is a white card */
+html body .row:has(> [class*="col-"] > .row > [class*="col-"] > a[href*="divisionteamid"]) > [class*="col-"] {
   flex: none;
   width: auto;
   max-width: none;
+  margin: 0;
   padding: 0;
   background: var(--scjvl-white);
-  border: 1px solid rgba(18, 59, 93, 0.12);
-  border-radius: 14px;
-  box-shadow: 0 2px 6px rgba(18, 59, 93, 0.08);
-  transition: box-shadow 0.15s ease;
+  border: 1px solid rgba(18, 59, 93, 0.10);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(18, 59, 93, 0.10);
 }
 
-html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) > [class*="col-"]:hover {
-  box-shadow: 0 4px 12px rgba(18, 59, 93, 0.18);
+/* Division name = column header */
+html body .row:has(> [class*="col-"] > .row > [class*="col-"] > a[href*="divisionteamid"]) > [class*="col-"] > h2 {
+  display: block;
+  margin: 0;
+  padding: 14px 12px;
+  background: var(--scjvl-navy-dark);
+  color: var(--scjvl-white);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-align: center;
+  text-decoration: none;
+  border-bottom: 3px solid var(--scjvl-orange);
 }
 
-/* The whole tile is clickable; names wrap inside it */
+/* Teams stacked, one per row */
+html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) {
+  display: block;
+  margin: 0;
+  counter-reset: teams;
+}
+
+html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) > [class*="col-"] {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  counter-increment: teams;
+  border-bottom: 1px solid rgba(18, 59, 93, 0.08);
+}
+
+html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) > [class*="col-"]:nth-child(even) {
+  background-color: #fff3e8;
+}
+
 html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) a[href*="divisionteamid"] {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 64px;
-  padding: 12px 10px;
+  display: block;
+  padding: 11px 12px;
   text-align: center;
   font-weight: 700;
+  font-size: 14.5px;
   line-height: 1.25;
   overflow-wrap: anywhere;
   text-decoration: none;
@@ -247,6 +277,17 @@ html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) a[href*="divis
 html body .row:has(> [class*="col-"] > a[href*="divisionteamid"]) a[href*="divisionteamid"]:hover {
   text-decoration: none;
   color: var(--scjvl-blue-bold) !important;
+}
+
+/* "Teams: 5" counted automatically at the bottom of each column */
+html body .row:has(> [class*="col-"] > a[href*="divisionteamid"])::after {
+  content: "Teams: " counter(teams);
+  display: block;
+  padding: 8px 12px 10px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--scjvl-blue);
 }
 
 /* Banners (e.g. the notifications hint): peach with an orange edge */
